@@ -12,8 +12,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-String? nameUser;
-
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -37,10 +35,9 @@ class _AuthState extends State<Auth> {
     var doc = snapshot.docs;
   }
 
-  void checkAuth() async{
+  void regAuth() async{
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('check', true);
-
   }
 
   // void regName() async{
@@ -176,10 +173,10 @@ class _AuthState extends State<Auth> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () async{
+                            final prefs = await SharedPreferences.getInstance();
                             setState(() {
                               nameError = null;
                               passError = null;
-                              nameUser = null;
                             });
                             if(!_formKey.currentState!.validate()) return;
                             try{
@@ -202,8 +199,7 @@ class _AuthState extends State<Auth> {
                                 });
                                 return;
                               }
-                              nameUser = userDoc['name'];
-                              checkAuth();
+                              regAuth();
                               Navigator.pushNamed(context, '/hello');
                             } catch(e){
                               print(e);

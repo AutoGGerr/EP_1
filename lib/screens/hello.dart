@@ -17,7 +17,7 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Home();
   }
-  }
+}
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -27,10 +27,9 @@ class Home extends StatefulWidget {
   
 }
 
+
 class _HomeState extends State<Home> {
-
   @override
-
   
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +63,7 @@ class _HomeState extends State<Home> {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: nameUser,
+                      text: 'f',
                       style: TextStyle(
                       fontSize: 20,
                       color: const Color.fromARGB(125, 255, 0, 0)

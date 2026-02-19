@@ -11,20 +11,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Fire extends StatefulWidget {
   const Fire({super.key});
   @override
+  
   State<Fire> createState() => _FireState();
 }
 
 class _FireState extends State<Fire> {
-
   @override
 
   Future<void> getUsers() async{
     QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').get();
     var doc = snapshot.docs;
   }
-  int countFire = 1;
   Widget build(BuildContext context) {
-    // Person person = boxPersons.getAt(0);
     return Stack(
       children: [
         
@@ -42,28 +40,9 @@ class _FireState extends State<Fire> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('${countFire}'),
+                            Text(''),
                             ElevatedButton(
                               onPressed: () async{
-                                try{
-                                  var snapshot = await FirebaseFirestore.instance
-                                  .collection('users')
-                                  .where('name', isEqualTo: nameUser)
-                                  .get();
-                                  
-                                  var userFire = snapshot.docs.first;
-                                  countFire = userFire['fire'];
-
-                                  setState(() async{
-                                    countFire = countFire + 1;
-                                    
-                                  });
-
-
-                                  
-                                } catch(e){
-                                  print(e);
-                                }
                                 
                               }, 
                               child: Text("Нажми на меня")
