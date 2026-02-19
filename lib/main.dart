@@ -17,7 +17,7 @@ void main () async{
   runApp(MaterialApp(
       routes: routes,
       initialRoute: isLogin? '/hello': '/',
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
   ));
 }
 

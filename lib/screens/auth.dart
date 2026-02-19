@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 String? nameUser;
-String? nameUser1;
+
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -278,6 +278,7 @@ class Reg extends StatefulWidget {
 
   @override
   State<Reg> createState() => _RegState();
+  
 }
 
 class _RegState extends State<Reg> {
@@ -288,7 +289,8 @@ class _RegState extends State<Reg> {
   TextEditingController replacePasswordController = TextEditingController();
   String? nameError;
   String? passError;
-
+  
+  
 
   @override
 
@@ -296,9 +298,12 @@ class _RegState extends State<Reg> {
     QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').get();
     var doc = snapshot.docs;
   }
+  
 
   Widget build(BuildContext context) {
+    
     return Stack(
+      
       children: [
         SizedBox.expand(
           child: Image.asset('assets/auth_wallpaper.jpg', fit: BoxFit.cover),
@@ -463,6 +468,7 @@ class _RegState extends State<Reg> {
                               // if(_formKey.currentState!.validate()){
                               //    boxPersons.put('key_${nameController.text}', Person(name: nameController.text, password: passwordController.text, fire: 1, lastCheck: null));                                 
                               // }
+                              
                                   setState(() {
                                     nameError = null;
                                     passError = null;
@@ -489,7 +495,7 @@ class _RegState extends State<Reg> {
                                       'name': nameController.text, 
                                       'password': passwordController.text,
                                       'dataCreate': FieldValue.serverTimestamp(),
-                                      'fire': 0
+                                      'fire': 0,
                                       });
                                     Navigator.pop(context);
                                     }
