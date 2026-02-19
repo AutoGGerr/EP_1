@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "619614982746",
+    "project_id": "eliminate-procrastination",
+    "storage_bucket": "eliminate-procrastination.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619614982746:android:b58055fecf8a75bf56be63",
+        "android_client_info": {
+          "package_name": "com.example.eliminate_procrastination"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6eRvVE_RKkhCC2MpBRRWE7-yydVS-UGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
