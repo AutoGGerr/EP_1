@@ -399,6 +399,8 @@ class _RegState extends State<Reg> {
                           validator: (value) {
                             if(value == null || value.isEmpty){
                               return 'Введите пароль';
+                            }  else if(value.length<5){
+                              return 'Пароль должен содержать больше 5-ти символов';
                             }
                             return null;
                           },
