@@ -33,12 +33,16 @@ class _AuthState extends State<Auth> {
   Future<void> getUsers() async{
     QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').get();
     var doc = snapshot.docs;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('docId', '');
   }
 
   void regAuth() async{
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('check', true);
   }
+  
+
 
 
 
@@ -177,7 +181,6 @@ class _AuthState extends State<Auth> {
                         child: ElevatedButton(
                           onPressed: () async{
                             final prefs = await SharedPreferences.getInstance();
-
                             setState(() {
                               nameError = null;
                               passError = null;
@@ -196,8 +199,13 @@ class _AuthState extends State<Auth> {
                                 });
                                 return;
                               }
-
+                              
                               var userDoc = snapshot.docs.first;
+                              String? currentId = snapshot.docs.first.id;
+
+                              await prefs.setString('docId', currentId);
+                              
+                              
 
                               if (userDoc['password'] != passwordController.text){
                                 setState(() {
@@ -206,8 +214,11 @@ class _AuthState extends State<Auth> {
                                 return;
                               }
                               regAuth();
-
+                              
                               Navigator.pushNamed(context, '/hello');
+                              setState(() async {
+                                userId = await checkCurrrentUser();
+                              });
                             } catch(e){
                               print(e);
                             }

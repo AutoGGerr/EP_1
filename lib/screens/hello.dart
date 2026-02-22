@@ -29,8 +29,9 @@ class Home extends StatefulWidget {
 
 
 
-
 class _HomeState extends State<Home> {
+
+
   @override
   
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class _HomeState extends State<Home> {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: '',
+                      text: userId,
                       style: TextStyle(
                       fontSize: 20,
                       color: const Color.fromARGB(125, 255, 0, 0)
@@ -103,7 +104,7 @@ class _HomeState extends State<Home> {
                       Opacity(
                         opacity: 1,
                         child: ElevatedButton(
-                          onPressed:() async {
+                          onPressed:() {                            
                             Navigator.pushNamed(context, '/fire');
                           }, 
                           style: ElevatedButton.styleFrom(

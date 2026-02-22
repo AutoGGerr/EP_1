@@ -6,15 +6,24 @@ import './screens/hello.dart';
 import './routes/routes.dart';
 import './screens/auth.dart';
 
+Future<String?> checkCurrrentUser() async{
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('docId');
+}
 
 
+
+
+String? userId;
+int userFire = 1;
 
 void main () async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  userId = await checkCurrrentUser();
+
   final prefs = await SharedPreferences.getInstance();
   bool isLogin = prefs.getBool('check') ?? false;
-
   runApp(MaterialApp(
       routes: routes,
       initialRoute: isLogin? '/hello': '/',

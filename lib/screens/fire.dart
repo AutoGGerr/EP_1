@@ -11,16 +11,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Fire extends StatefulWidget {
   const Fire({super.key});
-
   @override
-
   State<Fire> createState() => _FireState();
   
 }
 
 class _FireState extends State<Fire> {
-  @override
   
+  void incrementFire() async{
+    await FirebaseFirestore.instance
+    .collection('users')
+    .doc(userId)
+    .update({
+      'fire': FieldValue.increment(1),
+    });
+  }
+
+
+  @override
+
+  Future<void> getUsers() async{
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').get();
+    var doc = snapshot.docs;
+  }  
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -38,17 +51,30 @@ class _FireState extends State<Fire> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: (){
-                          setState((){
+                        onPressed: () async{  
+                            var snapshot = await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(userId)
+                            .get();
                             
-                          });
-                          
+                            var userData = snapshot.data();
+                            var fire = userData?['fire'];
+
+                            userFire = fire;
+
+                            setState(() {
+                              incrementFire();
+                            });       
                         }, 
-                        child: Text('')
+                        child: Text('+ к огню', 
+                        style:
+                        TextStyle(
+                          color: Colors.red
+                        ),)
                         ),
                         SizedBox(height: 50,),
                         
-                        Text("Результат:", 
+                        Text("Результат: ${userFire}", 
                           style: TextStyle(
                             fontSize: 30
                           ),
