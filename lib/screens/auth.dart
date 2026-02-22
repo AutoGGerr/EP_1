@@ -512,7 +512,7 @@ class _RegState extends State<Reg> {
                                       'password': passwordController.text,
                                       'dataCreate': FieldValue.serverTimestamp(),
                                       'fire': 0,
-                                      });
+                                      }); 
                                       
                                     Navigator.pop(context);
                                     }
