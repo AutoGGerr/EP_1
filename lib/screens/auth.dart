@@ -40,6 +40,9 @@ class _AuthState extends State<Auth> {
     await prefs.setBool('check', true);
   }
 
+
+
+
   // void regName() async{
   //   final prefs = await SharedPreferences.getInstance();
   //   await prefs.setString('name', nameController.text);
@@ -174,11 +177,14 @@ class _AuthState extends State<Auth> {
                         child: ElevatedButton(
                           onPressed: () async{
                             final prefs = await SharedPreferences.getInstance();
+
                             setState(() {
                               nameError = null;
                               passError = null;
                             });
+
                             if(!_formKey.currentState!.validate()) return;
+
                             try{
                               var snapshot = await FirebaseFirestore.instance
                               .collection('users')
@@ -200,6 +206,7 @@ class _AuthState extends State<Auth> {
                                 return;
                               }
                               regAuth();
+
                               Navigator.pushNamed(context, '/hello');
                             } catch(e){
                               print(e);
@@ -267,6 +274,8 @@ class _AuthState extends State<Auth> {
          );
   }
 }
+
+
 
 
 class Reg extends StatefulWidget {
@@ -493,6 +502,7 @@ class _RegState extends State<Reg> {
                                       'dataCreate': FieldValue.serverTimestamp(),
                                       'fire': 0,
                                       });
+                                      
                                     Navigator.pop(context);
                                     }
                                   } catch(e){

@@ -7,8 +7,9 @@ import './routes/routes.dart';
 import './screens/auth.dart';
 
 
-void main () async{
 
+
+void main () async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final prefs = await SharedPreferences.getInstance();
@@ -20,6 +21,12 @@ void main () async{
       debugShowCheckedModeBanner: false,
   ));
 }
+
+
+
+
+
+
 
 
 

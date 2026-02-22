@@ -8,20 +8,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class Fire extends StatefulWidget {
   const Fire({super.key});
+
   @override
-  
+
   State<Fire> createState() => _FireState();
+  
 }
 
 class _FireState extends State<Fire> {
   @override
-
-  Future<void> getUsers() async{
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').get();
-    var doc = snapshot.docs;
-  }
+  
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -33,24 +32,32 @@ class _FireState extends State<Fire> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 500,),
-                Column(
-                    children:[
-                      SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(''),
-                            ElevatedButton(
-                              onPressed: () async{
-                                
-                              }, 
-                              child: Text("Нажми на меня")
-                              ),
-                            Text("")
-                          ],
+                SizedBox(height: 200,),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: (){
+                          setState((){
+                            
+                          });
+                          
+                        }, 
+                        child: Text('')
                         ),
-                      )
+                        SizedBox(height: 50,),
+                        
+                        Text("Результат:", 
+                          style: TextStyle(
+                            fontSize: 30
+                          ),
+                          ),
+                    ],
+                  ),
+                  
+                    
+                      
 
 
 
@@ -110,7 +117,7 @@ class _FireState extends State<Fire> {
                       // )
                       // )
                       
-                    ] 
+                    
                     ),
               ],
             )
