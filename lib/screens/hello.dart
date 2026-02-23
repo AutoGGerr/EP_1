@@ -33,6 +33,11 @@ class _HomeState extends State<Home> {
 
 
   @override
+
+  Future<void> getUsers() async{
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').get();
+    var doc = snapshot.docs;
+  }  
   
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +71,7 @@ class _HomeState extends State<Home> {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: userId,
+                      text: userName,
                       style: TextStyle(
                       fontSize: 20,
                       color: const Color.fromARGB(125, 255, 0, 0)
@@ -104,7 +109,16 @@ class _HomeState extends State<Home> {
                       Opacity(
                         opacity: 1,
                         child: ElevatedButton(
-                          onPressed:() {                            
+                          onPressed:() async{       
+                            var snapshot = await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(userId)
+                            .get();
+
+                            var userData = snapshot.data();
+                            var fire = userData?['fire'];
+                            
+                            userFire = fire;
                             Navigator.pushNamed(context, '/fire');
                           }, 
                           style: ElevatedButton.styleFrom(

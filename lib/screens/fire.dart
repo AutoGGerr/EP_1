@@ -17,14 +17,21 @@ class Fire extends StatefulWidget {
 }
 
 class _FireState extends State<Fire> {
-  
-  void incrementFire() async{
-    await FirebaseFirestore.instance
-    .collection('users')
-    .doc(userId)
-    .update({
-      'fire': FieldValue.increment(1),
-    });
+
+void incrementFire() async{
+      await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .update({
+        'fire': FieldValue.increment(1),
+      });
+
+      var snapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .get();
+      var fire = snapshot?['fire'];
+      userFire = fire;
   }
 
 
@@ -37,13 +44,12 @@ class _FireState extends State<Fire> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        
         SizedBox.expand(
           child: Image.asset('assets/fire_wallpaper.jpg', fit: BoxFit.cover,),
         ),
         SafeArea(
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center, 
               children: [
                 SizedBox(height: 200,),
                 Center(
@@ -52,16 +58,6 @@ class _FireState extends State<Fire> {
                     children: [
                       ElevatedButton(
                         onPressed: () async{  
-                            var snapshot = await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(userId)
-                            .get();
-                            
-                            var userData = snapshot.data();
-                            var fire = userData?['fire'];
-
-                            userFire = fire;
-
                             setState(() {
                               incrementFire();
                             });       

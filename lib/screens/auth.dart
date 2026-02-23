@@ -35,6 +35,7 @@ class _AuthState extends State<Auth> {
     var doc = snapshot.docs;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('docId', '');
+    await prefs.setString('userCurrentName', '');
   }
 
   void regAuth() async{
@@ -180,6 +181,7 @@ class _AuthState extends State<Auth> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () async{
+
                             final prefs = await SharedPreferences.getInstance();
                             setState(() {
                               nameError = null;
@@ -187,12 +189,13 @@ class _AuthState extends State<Auth> {
                             });
 
                             if(!_formKey.currentState!.validate()) return;
-
                             try{
                               var snapshot = await FirebaseFirestore.instance
                               .collection('users')
                               .where('name', isEqualTo: nameController.text)
                               .get();
+
+
                               if(snapshot.docs.isEmpty){
                                 setState(() {
                                   nameError = 'Пользователя нету';
@@ -202,10 +205,9 @@ class _AuthState extends State<Auth> {
                               
                               var userDoc = snapshot.docs.first;
                               String? currentId = snapshot.docs.first.id;
-
+                              String currentName = userDoc['name'];
+                              await prefs.setString('userCurrentName', currentName);
                               await prefs.setString('docId', currentId);
-                              
-                              
 
                               if (userDoc['password'] != passwordController.text){
                                 setState(() {
@@ -213,12 +215,15 @@ class _AuthState extends State<Auth> {
                                 });
                                 return;
                               }
+
                               regAuth();
                               
                               Navigator.pushNamed(context, '/hello');
                               setState(() async {
                                 userId = await checkCurrrentUser();
+                                userName = await checkCurrrentUserName();
                               });
+
                             } catch(e){
                               print(e);
                             }

@@ -12,15 +12,22 @@ Future<String?> checkCurrrentUser() async{
 }
 
 
+Future<String?> checkCurrrentUserName() async{
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('userCurrentName');
+}
 
 
+
+String? userName;
 String? userId;
-int userFire = 1;
+int userFire = 0;
 
 void main () async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   userId = await checkCurrrentUser();
+  userName = await checkCurrrentUserName();
 
   final prefs = await SharedPreferences.getInstance();
   bool isLogin = prefs.getBool('check') ?? false;
