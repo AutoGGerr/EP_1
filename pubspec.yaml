@@ -59,6 +59,7 @@ flutter:
     - assets/main_wallpaper_v2.jpg
     - assets/mw_v3.jpg
     - assets/fire_wallpaper.jpg
+    - assets/fire.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

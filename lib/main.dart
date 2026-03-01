@@ -22,6 +22,8 @@ Future<String?> checkCurrrentUserName() async{
 String? userName;
 String? userId;
 int userFire = 0;
+int currrentFire = 0;
+bool isDisibled = false;
 
 void main () async{
   WidgetsFlutterBinding.ensureInitialized();

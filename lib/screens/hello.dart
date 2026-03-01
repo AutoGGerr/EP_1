@@ -119,6 +119,7 @@ class _HomeState extends State<Home> {
                             var fire = userData?['fire'];
                             
                             userFire = fire;
+                            currrentFire = fire;
                             Navigator.pushNamed(context, '/fire');
                           }, 
                           style: ElevatedButton.styleFrom(
