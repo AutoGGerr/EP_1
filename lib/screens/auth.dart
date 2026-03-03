@@ -10,6 +10,7 @@ import './hello.dart';
 import '../routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/services.dart';
 
 
 
@@ -37,6 +38,7 @@ class _AuthState extends State<Auth> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('docId', '');
     await prefs.setString('userCurrentName', '');
+    await prefs.setString('lastSeen', '');
   }
 
   void regAuth() async{
@@ -196,7 +198,6 @@ class _AuthState extends State<Auth> {
                               .where('name', isEqualTo: nameController.text)
                               .get();
 
-
                               if(snapshot.docs.isEmpty){
                                 setState(() {
                                   nameError = 'Пользователя нету';
@@ -218,13 +219,12 @@ class _AuthState extends State<Auth> {
                               }
 
                               regAuth();
-                              
                               Navigator.pushNamed(context, '/hello');
+
                               setState(() async {
                                 userId = await checkCurrrentUser();
                                 userName = await checkCurrrentUserName();
                               });
-
                             } catch(e){
                               print(e);
                             }

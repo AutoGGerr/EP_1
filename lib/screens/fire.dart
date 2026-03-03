@@ -7,13 +7,13 @@ import 'auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/services.dart';
 
 
 class Fire extends StatefulWidget {
   const Fire({super.key});
   @override
   State<Fire> createState() => _FireState();
-  
 }
 
 class _FireState extends State<Fire> {
@@ -62,12 +62,21 @@ void incrementFire() async{
               ),
               SizedBox(height: 100,),
               Opacity(opacity: 0.5),
-              TextButton(
-                onPressed:() {
-                  setState(()  {
+              ElevatedButton(
+                onPressed:() async{
+                  final prefs = await SharedPreferences.getInstance();
+
+                  DateTime lastSeenCurrent = DateTime.now();
+                  final isoLastSeen = lastSeenCurrent.toIso8601String();
+
+                  await prefs.setString('lastSeen', isoLastSeen);
+                  setState((){
                     incrementFire();
                     currrentFire = currrentFire + 1;
-                  });   
+                  });  
+                  lastSeen = await checkLastSeen();
+                  lastHours = await seenCurrent(lastSeen);
+
                 },
                 child: Image.asset(
                   'assets/fire.png', 

@@ -60,8 +60,10 @@ class _HomeState extends State<Home> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(0, 250, 0, 0),
+                Column(
+                  children: [
+                    Padding(
+                  padding: EdgeInsetsGeometry.fromLTRB(0, 230, 0, 0),
                   child: Text.rich(TextSpan(
                     text: 'Аккаунт: ',
                       style: TextStyle(
@@ -80,15 +82,38 @@ class _HomeState extends State<Home> {
                   ]
                   ))
                 ),
+                Padding(
+                  padding: EdgeInsetsGeometry.fromLTRB(0, 0, 0, 0),
+                  child: Text.rich(TextSpan(
+                    text: 'Дата последнего захода: ',
+                      style: TextStyle(
+                      fontSize: 20,
+                      color: const Color.fromARGB(45, 255, 0, 0),
+                    
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '$lastHours минут',
+                      style: TextStyle(
+                      fontSize: 20,
+                      color: const Color.fromARGB(125, 255, 0, 0)
+                        ),
+                      )
+                    ]
+                    ))
+                  ),
+                ],
+                )
               ],
              ),
             ),
+            
           SafeArea(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsGeometry.fromLTRB(0, 250, 0, 0),
+                    padding: EdgeInsetsGeometry.fromLTRB(0, 270, 0, 0),
                     child: Text("E.P.",
                     style: TextStyle(
                       fontSize: 160,
