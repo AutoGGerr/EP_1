@@ -40,23 +40,7 @@ class _AuthState extends State<Auth> {
     await prefs.setString('userCurrentName', '');
     await prefs.setString('lastSeen', '');
   }
-
-  void regAuth() async{
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('check', true);
-  }
   
-
-
-
-
-
-  // void regName() async{
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('name', nameController.text);
-    // String? nameUser = prefs.getString('name') ?? '';
-  // }
-
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -170,9 +154,7 @@ class _AuthState extends State<Auth> {
                             }
                             return null;
                           },
-                          
                         ),
-                        
                       ),
                     ),
                   ),
@@ -184,7 +166,6 @@ class _AuthState extends State<Auth> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () async{
-
                             final prefs = await SharedPreferences.getInstance();
                             setState(() {
                               nameError = null;

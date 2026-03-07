@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import './auth.dart';
 import '../main.dart';
 import '../routes/routes.dart';
-
+import '../services/services.dart';
 class Main extends StatelessWidget {
   const Main({super.key});
 
@@ -26,12 +26,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-
-
-
 class _HomeState extends State<Home> {
-
-
   @override
 
   Future<void> getUsers() async{
@@ -82,26 +77,6 @@ class _HomeState extends State<Home> {
                   ]
                   ))
                 ),
-                Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(0, 0, 0, 0),
-                  child: Text.rich(TextSpan(
-                    text: 'Дата последнего захода: ',
-                      style: TextStyle(
-                      fontSize: 20,
-                      color: const Color.fromARGB(45, 255, 0, 0),
-                    
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: '$lastHours минут',
-                      style: TextStyle(
-                      fontSize: 20,
-                      color: const Color.fromARGB(125, 255, 0, 0)
-                        ),
-                      )
-                    ]
-                    ))
-                  ),
                 ],
                 )
               ],
@@ -145,6 +120,9 @@ class _HomeState extends State<Home> {
                             
                             userFire = fire;
                             currrentFire = fire;
+                            lastHours = await seenCurrent(lastSeen);
+                            isActive = checkActiveFire(lastSeen);
+                            
                             Navigator.pushNamed(context, '/fire');
                           }, 
                           style: ElevatedButton.styleFrom(
@@ -173,9 +151,48 @@ class _HomeState extends State<Home> {
                     opacity: 1,
                     child: ElevatedButton(
                       onPressed:() async {
-                        final prefs = await SharedPreferences.getInstance();
-                        await prefs.setBool('check', false);
-                        Navigator.pushNamed(context, '/');
+                        
+                        showDialog(
+                          context: context,
+                           builder: (context){
+                            return AlertDialog(
+                              backgroundColor: const Color.fromARGB(31, 255, 0, 0),
+                              title: Text('Вы уверены, что хотите выйти?', 
+                              style: TextStyle(
+                                color: const Color.fromARGB(87, 255, 255, 255)
+                              ),),
+                              actions: [
+                                Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(onPressed: () async{
+                                      final prefs = await SharedPreferences.getInstance();
+                                      await prefs.setBool('check', false);
+                                      Navigator.pushNamed(context, '/');
+                                      }, child: Text('Да', style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight(500),
+                                        color: const Color.fromARGB(255, 255, 0, 0)
+                                      ),)
+                                      ),
+                                      TextButton(onPressed: (){
+                                        
+                                        Navigator.pop(context);
+                                      }, child: Text('Нет', style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight(500),
+                                        color: const Color.fromARGB(255, 157, 255, 0)
+                                      ),)),     
+                                    ]      
+                              
+                                    
+                                  ),
+                                )
+                              ] 
+                            );
+                           });
+                        
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(31, 255, 255, 255)
